@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Reporter {
+  id          Int     @id @default(autoincrement())
+  name        String
+  city        String
+  available   Boolean @default(true)
+  jobs        Job[]   @relation("ReporterJobs")
+}
+
+model Editor {
+  id           Int    @id @default(autoincrement())
+  name         String
+  flatFee      Int    @default(50000) // IDR per job
+  assignedJobs Job[]  @relation("EditorJobs")
+}
+
+model Job {
+  id           Int       @id @default(autoincrement())
+  caseName     String
+  duration     Int       // minutes
+  locationType String     @map("location_type") // "physical" or "remote"
+  city         String?    // only required if physical
+  status       String     @default("NEW")
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  reporterId   Int?      @map("reporter_id")
+  reporter     Reporter? @relation("ReporterJobs", fields: [reporterId], references: [id])
+  
+  editorId     Int?      @map("editor_id")
+  editor       Editor?   @relation("EditorJobs", fields: [editorId], references: [id])
+
+  @@map("jobs")
+}
