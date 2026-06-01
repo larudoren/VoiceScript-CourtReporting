@@ -30,12 +30,9 @@ docker-compose up --build
 ```
 
 This will:
-
-    - Start PostgreSQL (workflow_db)
-
-    - Start backend (Node.js) on port 4000
-
-    - Start frontend (Next.js) on port 3000
+- Start PostgreSQL (workflow_db)
+- Start backend (Node.js) on port 4000
+- Start frontend (Next.js) on port 3000
 
 ### 4. Run database migrations & seed data
 
