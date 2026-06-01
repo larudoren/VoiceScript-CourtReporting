@@ -28,7 +28,8 @@ cd VoiceScript-CourtReporting
 ```bash
 docker-compose up --build
 ```
-    This will:
+
+This will:
 
     - Start PostgreSQL (workflow_db)
 
