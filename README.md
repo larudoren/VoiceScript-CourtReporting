@@ -42,6 +42,9 @@ Open a new terminal and run:
 # Apply migrations (creates tables)
 docker exec -it workflow_backend npx prisma migrate dev --name init
 
+# Check if the migrate is successful and tables are created on the database
+docker exec -it workflow_db psql -U admin -d workflow -c "\dt"
+
 # Seed reporters and editors
 docker exec -it workflow_backend npx prisma db seed
 ```
